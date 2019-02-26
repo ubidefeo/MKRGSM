@@ -53,7 +53,9 @@ String GSMModem::getICCID()
   iccid.reserve(20);
 
   MODEM.send("AT+CCID");
-  MODEM.waitForResponse(120, &iccid);
-
+  MODEM.waitForResponse(1200, &iccid);
+  if(iccid.startsWith("+CCID: ")){
+    iccid.remove(0, 7);
+  }
   return iccid;
 }
